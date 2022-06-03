@@ -1,0 +1,26 @@
+{
+	"extends": "./jsconfig.paths.json",
+	"compilerOptions": {
+		"target": "es6",
+		"esModuleInterop": true,
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"jsx": "react-jsx",
+		"allowJs": false,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "**/*.spec.ts"]
+}
