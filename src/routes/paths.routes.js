@@ -17,14 +17,23 @@
 const PATHS_COLLECTIONS = Object.freeze({
     PRIVATE_PATHS: {
         DASHBOARD_BASE_PATH: Symbol('app/'),
+        ACCOUNT_PATHS: {
+            BASE_PATH: Symbol('account/'),
+        },
+        DISEASES_PATHS: {
+            BASE_PATH: Symbol('diseases/'),
+            CREATE_PATH: Symbol('create/'),
+        },
+        CASES_PATHS: {
+            BASE_PATH: Symbol('cases/'),
+        },
+        HOSPITALS_PATHS: {
+            BASE_PATH: Symbol('hospitals/'),
+        },
         USER_PATHS: {
             BASE_PATH: Symbol('user/'),
             USER_CONFIG: Symbol('config/'),
             RESET_PASSWORD: Symbol('reset-password/'),
-        },
-        EXAMPLE_PATHS: {
-            CHARTS: Symbol('charts/'),
-            TABLES: Symbol('tables/'),
         },
     },
     PUBLIC_PATHS: {

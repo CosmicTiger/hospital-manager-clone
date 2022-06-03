@@ -1,6 +1,5 @@
-import { Suspense } from 'react'
-
-import Spinner from '../Spinner'
+import Spinner from "../Spinner"
+import { Suspense } from "react"
 
 const SuspenseHOC = props => {
     const { view } = props

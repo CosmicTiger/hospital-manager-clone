@@ -1,7 +1,7 @@
-import BasicLayout from './BasicLayout'
+import AdminLayout from "./AdminLayout"
 
 const LayoutCollections = {
-    BasicLayout,
+    AdminLayout,
 }
 
 export default LayoutCollections

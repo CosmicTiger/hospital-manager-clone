@@ -1,153 +1,49 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom';
-
-// const NavBar = () => {
-//     return (
-//         <nav>
-//             <ul>
-//                 <li>
-//                     <Link to="/">Inicio</Link>
-//                 </li>
-//                 <li>
-//                     <Link to="/account">Account</Link>
-//                 </li>
-//                 <li>
-//                     <Link to="/diseases">Enfermedades</Link>
-//                 </li>
-//                 <li>
-//                     <Link to="/cases">Ver casos</Link>
-//                 </li>
-//                 <li>
-//                     <Link to="/hospitals">Ver hospitales</Link>
-//                 </li>
-//             </ul>
-//         </nav>
-//     )
-// }
-
-// export default NavBar;
-
-import { useMemo, useState } from 'react'
-import { Layout, Typography } from 'antd'
-import classNames from 'classnames'
-
-import Menu from './Menu'
-import ResponsiveHeader from './ResponsiveHeader'
-
-import { PushpinFilled, PushpinOutlined } from '@ant-design/icons'
-
-const { Title } = Typography
+import Nav from 'react-bootstrap/Nav'
+import * as Icon from 'react-bootstrap-icons';
+import { useState } from "react"
+import classnames from "classnames"
+import { Link, useLocation } from "react-router-dom"
+import {
+    PRIVATE_DASHBOARD,
+    PRIVATE_DISEASES
+} from "../../routes/app-router.routes"
 
 const SideNav = () => {
-    const isDesktop = true
-    const height = 100
-    const [isCollapsed, setCollapsed] = useState(false)
-    const [isPinned, setIsPinned] = useState(true)
-    const [isHovered, setHovered] = useState(false)
+    const location = useLocation()
+    const [activeKey, setActiveKey] = useState(location.pathname)
 
-    const onCollapse = (_collapsed = false, type) => {
-        if (type === 'clickTrigger') {
-            if (!isPinned) {
-                setIsPinned(_collapsed)
-            } else {
-                setIsPinned(!_collapsed)
-            }
-        }
+    const handleItemSelect = info => {
+        if (info.target.pathname) setActiveKey(info.target.pathname)
     }
 
-    const onBreakpoint = (broken) => {
-        if (!broken && !isPinned) {
-            setCollapsed(true)
-        } else {
-            setCollapsed(broken)
-        }
-    }
-
-    const onHover = {
-        onMouseEnter() {
-            if (!isPinned && isDesktop) {
-                setCollapsed(false)
-                setHovered(true)
-            }
-        },
-        onMouseLeave() {
-            if (!isPinned && isDesktop) {
-                setCollapsed(true)
-                setHovered(false)
-            }
-        },
-    }
-
-    const handleResponsiveOpen = () => {
-        setCollapsed(!isCollapsed)
-    }
-
-    const pinTrigger = !isPinned ? (
-        <PushpinOutlined className="text-xl" />
-    ) : (
-        <PushpinFilled className="text-xl" />
-    )
-
-    const menuWrapperStyle = {
-        maxHeight: isDesktop ? `${height - 70 - 48}px` : '100vh',
-        overflow: 'overlay',
-    }
-
-    // NOTE: Breakpoint "lg" is equal to 992px
     return (
-        <>
-            <div
-                className={classNames(
-                    'sidenav__backshadow',
-                    !isPinned && isDesktop ? 'block' : 'hidden'
-                )}
-            />
-            <button
-                className={classNames('sidenav__bg', {
-                    'sidenav__bg-visible':
-                        (!isPinned && isHovered && !isCollapsed && isDesktop) ||
-                        (!isCollapsed && !isDesktop),
-                })}
-                onClick={!isDesktop ? handleResponsiveOpen : undefined}
-            />
-            <ResponsiveHeader handleOpen={handleResponsiveOpen} />
-            <Layout.Sider
-                breakpoint="lg"
-                className={classNames('sidenav', {
-                    sidenav_responsive: !isDesktop,
-                    'absolute h-full': !isPinned && isDesktop,
-                })}
-                collapsedWidth={isDesktop ? '80' : '0'}
-                zeroWidthTriggerStyle={{ display: 'none' }}
-                collapsed={isCollapsed}
-                collapsible={isDesktop}
-                onBreakpoint={onBreakpoint}
-                onCollapse={onCollapse}
-                onMouseEnter={onHover.onMouseEnter}
-                onMouseLeave={onHover.onMouseLeave}
-                trigger={pinTrigger}
-                width={264}
+        <div className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style={{ width: '40vh' }}>
+            <Nav
+                variant="pills"
+                activeKey={activeKey}
+                defaultActiveKey={[location.pathname]}
+                onSelect={handleItemSelect}
+                className="flex-column mb-auto"
             >
-                <div className={classNames('sidenav__logo', { hidden: !isDesktop })}>
-                    <div>
-                    </div>
-                    <Title
-                        level={1}
-                        className={classNames('sidenav__title', {
-                            'sidenav__title-collapsed': !isPinned,
-                        })}
-                    >
-                        Brevetech
-                    </Title>
-                </div>
-                {/* minus 70px for the header height and minu 48px for the bottom pin button height */}
-                <div style={menuWrapperStyle}>
-                    <Menu />
-                </div>
-            </Layout.Sider>
-        </>
+                <Link to={PRIVATE_DASHBOARD} className="d-flex align-items-center mb-4 me-md-auto text-white text-decoration-none" style={{ lineHeight: 0 }}>
+                    <Icon.HospitalFill className="bi pe-none me-2" width={40} height={32} />
+                    <span className="ms-4 fs-2">Hospital Manager</span>
+                </Link>
+                <Nav.Item>
+                    <Link key={PRIVATE_DASHBOARD} to={PRIVATE_DASHBOARD} className={classnames("nav-link text-white", { "active": activeKey === PRIVATE_DASHBOARD })} style={{ lineHeight: 0 }} onClick={handleItemSelect}>
+                        <Icon.HouseDoorFill className="bi pe-none me-2" width={16} height={16} />
+                        <span className="ms-4">Dashboard</span>
+                    </Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Link key={PRIVATE_DISEASES} to={PRIVATE_DISEASES} className={classnames("nav-link text-white", { "active": activeKey === PRIVATE_DISEASES })} style={{ lineHeight: 0 }} onClick={handleItemSelect}>
+                        <Icon.ExclamationDiamondFill className="bi pe-none me-2" width={16} height={16} />
+                        <span className="ms-4">Diseases</span>
+                    </Link>
+                </Nav.Item>
+            </Nav>
+        </div >
     )
 }
 
 export default SideNav
-
