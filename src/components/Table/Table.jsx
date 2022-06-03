@@ -4,6 +4,28 @@ import { Table as BTable } from 'react-bootstrap'
 const Table = (props) => {
     const { items, columns } = props
 
+    const renderRowCells = (item) => {
+        const cells = []
+
+        Object.entries(item).forEach(([key, value]) => {
+
+            const column = columns.find(column => column.key === key)
+
+            console.log(column)
+
+            if (column) {
+                cells.push({
+                    key,
+                    component: <td key={key}>{value}</td>
+                })
+            }
+
+            return
+        })
+
+        return cells && cells.map(cell => cell.component)
+    }
+
     return (
         <BTable responsive>
             <thead>
@@ -18,8 +40,7 @@ const Table = (props) => {
             <tbody>
                 {items && items.map((item, index) => (
                     <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.inheritance}</td>
+                        {renderRowCells(item)}
                     </tr>
                 ))}
             </tbody>

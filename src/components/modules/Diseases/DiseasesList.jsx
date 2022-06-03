@@ -26,29 +26,19 @@ const DiseasesList = () => {
     const columns = [
         {
             name: 'Name',
-            selector: 'name',
+            key: 'name',
             sortable: true,
         },
         {
-            name: 'Cases',
-            selector: 'cases',
+            name: 'State',
+            key: 'state',
             sortable: true,
         },
         {
             name: 'Is inherited?',
-            selector: 'inherited',
+            key: 'inheritance',
             sortable: true,
         },
-        // {
-        //     name: 'Actions',
-        //     cell: row => (
-        //         <Link to={`/diseases/${row.id}`}>
-        //             <button className="btn btn-primary">
-        //                 <i className="fas fa-edit"></i>
-        //             </button>
-        //         </Link>
-        //     ),
-        // },
     ]
 
     return (
